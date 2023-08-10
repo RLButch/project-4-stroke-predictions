@@ -14,7 +14,7 @@ Here is a snippet of the dataset:
 Resources:  
 This project was built with:  
 Python Packages (eg. scikit-learn, matplotlib, searborn, etc.) 
-SQL  
+pickle 
 Flask 
 Javascript, D3  
 HTML  
@@ -25,8 +25,10 @@ Identify data sources and dependencies
 Perform EDA, determine feature set and transform stroke data  
 Compile, train and evaluate the model  
 Compare models for optimization of accuracy metric  
-Store the transformed dataset into SQLlite  
-Create Flask App and connect routes to model  
+Store the transformed dataset into pickle
+Create Flask App, import data in via pickle and connect routes to model  
 Create interactive web app using Javascript D3, html and css  
-![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/73f91b3e-2ff6-4ca6-8d85-d2313c38a98a)    
+![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/f592e68a-f319-428b-b895-5f961beca38a)    
+
+
 
