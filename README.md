@@ -18,10 +18,10 @@ Here is a snippet of the dataset:
 **Resources:**     
 
 This project was built with:  
-Python Packages (eg. scikit-learn, matplotlib, searborn, etc.) 
-pickle 
-Flask 
-Javascript, D3  
+Python Packages (eg. scikit-learn, matplotlib, searborn, etc.)     
+pickle     
+Flask     
+Javascript, D3      
 HTML  
 CSS  
 
