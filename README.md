@@ -34,7 +34,8 @@ Compare models for optimization of accuracy metric
 Store the transformed dataset into pickle
 Create Flask App, import data in via pickle and connect routes to model  
 Create interactive web app using Javascript D3, html and css  
-![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/f592e68a-f319-428b-b895-5f961beca38a)    
+![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/a016ecaf-0907-4c6b-b839-98350bdb17cc)
+
 
 
 
