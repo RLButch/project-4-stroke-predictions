@@ -36,6 +36,13 @@ Create Flask App, import data in via pickle and connect routes to model
 Create interactive web app using Javascript D3, html and css  
 ![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/54c0182c-e477-470b-a93c-40afb51677cf)    
 
+Statistical analysis was performed on the data: 
+
+ Interquartile range (IQR)
+ The interquartile range (IQR) is a measure of variability used in statistical analysis. It is a measure of the spread of a dataset and is defined as the difference between the upper and lower quartiles of the dataset. To calculate the IQR, the dataset is first sorted in ascending order. The median is then calculated, and the dataset is split into two halves - the lower half and the upper half. The lower quartile (Q1) is the median of the lower half, and the upper quartile (Q3) is the median of the upper half. The IQR is then calculated as the difference between Q3 and Q1. The IQR method is often used to identify outliers in a dataset. Any value that falls below Q1 - 1.5IQR or above Q3 + 1.5IQR is considered an outlier and may be removed from the dataset.
+
+Unsupervised Machine Learning Methods
+
 
 
 
