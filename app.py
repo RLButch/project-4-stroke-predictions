@@ -10,7 +10,7 @@ app = Flask(__name__)
 # Homepage
 @app.route("/")
 def index():
-    return render_template('index_1.html')
+    return render_template('index.html')
 
 # Result page 
 @app.route("/output",methods=["POST","GET"])
@@ -79,7 +79,7 @@ def output():
         gl =  ((int(gl) - 55)/(271 - 55))
         #bmi
         b = request.form['bmi']
-        b = int(b)
+        b = float(b)
         b = ((b-10.3)/(97.6-10.3))
         #smoking
         s = request.form['smoking']
@@ -98,7 +98,7 @@ def output():
             # make prediction
             prediction = stroke_pred(g,a,hyt,ht,m,w,r,gl,b,s)
             # render index_2 for result page
-            return render_template('index_2.html',prediction_html=prediction)
+            return render_template('index 2.html',prediction_html=prediction)
         except ValueError:
             return "Please Enter Valid Values"
 #prediction-model
