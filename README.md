@@ -18,7 +18,7 @@ Here is a snippet of the dataset:
 **Resources:**     
 
 This project was built with:  
-Python Packages (eg. scikit-learn, pandas, matplotlib, searborn, etc.)     
+Python Packages (eg. scikit-learn, pandas, matplotlib, seaborn, etc.)     
 pickle     
 Flask     
 HTML  
