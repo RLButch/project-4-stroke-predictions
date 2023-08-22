@@ -1,0 +1,14 @@
+body
+        {
+            background-image: url(https://d2jx2rerrg6sh3.cloudfront.net/image-handler/picture/2021/11/shutterstock_1488035675-1.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            color: 	#17202A;
+            font-size: large;
+
+           
+            margin-top: 40px;
+            margin-left: 50px;
+        }
+

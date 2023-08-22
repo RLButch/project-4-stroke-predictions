@@ -4,8 +4,6 @@ from markupsafe import Markup
 
 app = Flask(__name__)
 
-# Set secret keys for Flask application
-#app.secret_key = ""
 
 # Homepage
 @app.route("/")
@@ -115,9 +113,9 @@ def stroke_pred(g,a,hyt,ht,m,w,r,gl,b,s):
     print(result)
     #output
     if result == 1:
-        return Markup("Patient is at risk of stroke. <br> Please provide recommendations for managing and reducing the risk of stroke. Consider lifestyle modifications, preventive measures, and any other relevant advice to improve the patient's overall health and minimize the risk of stroke.")
+        return Markup("Warning! Patient exhibits risk symptoms for a stroke. <br> Please advise patient of recommendations for managing lifestyle factors and preventative measures to reduce the risk of stroke.")
     elif result == 0:
-        return  Markup("No risk of stroke detected. <br> Please continue monitoring patient's health and well-being. Kindly offer recommendations to maintain their overall health, taking into account lifestyle factors, preventive measures, and any other relevant advice that can contribute to their well-being.")
+        return  Markup("No risk of stroke detected <br> Please continue monitoring patient's health and well-being. Please offer patient recommendations to keep maintaining their health.")
     else:
         return "A problem has occured in processing your data. Try again."
 # Decontruct and encode inputs, transform 10 columns to 20
@@ -168,6 +166,11 @@ def fancy_deconstruct(user_input):
     decoded_input=[a, hyt, ht, gl, b, g_female, g_male, m_no, m_yes, w_gov, w_never, w_private, w_self, w_children, 
               r_rural, r_urban, s_unknown, s_former, s_never, s_yes]
     return decoded_input
+
+# third page of visualisations
+@app.route("/")
+def index():
+    return render_template('graphs.html')
 
 if __name__=='__main__': 
 	app.run()
