@@ -9,7 +9,7 @@ Symptoms of stroke include trouble walking, speaking and understanding, as well 
 Early treatment with medication like tPA (clot buster) can minimise brain damage. Other treatments focus on limiting complications and preventing additional strokes. Therefore intervention or understanding risk factors for stroke occurence is an important topic within the healthcare system. The objective of this project is to use machine learning to develop an early detection model for strokes. This will be based in causative factors determined during a deep dive into the dataset downloaded from Kaggle.
 Using the Kaggle dataset we were able to achieve excellent accuracy of the dataset.
 
-** Sources used in creation of this project**
+** Sources used in creation of this project**  
 Kaggle, One on one tutorials, Wednesday Tutorials, Class activities, class instructor and TA assistance, stack overflow, medium, geek to geek websites, 
 
 **Data Overview**    
