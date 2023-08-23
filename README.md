@@ -69,14 +69,14 @@ A random forest model was chosen for this project as it fits the dataset - our d
 After much researching it was found that the random forest algorithm is idea for dealing with data imbalance. It is a strong modelling technique and is much sturdier than a single decision tree. The aggregation of several trees limits the possibility of data overfitting and miscalculations due to bias.  Random forest has also historically been a model of choice for healthcare datasets.
 
 Our first algorithm attempt was to use SMOTE (Synthetic Minority Oversampling Technique) with the random forest which resulted in a reasonable accuracy but wasn't predicting the data as efficiently as we would like. SMOTE is an oversampling technique that uses a minority class to generate synthetic samples. It typically overcomes overfitting problems raised by random oversampling. It randomly selects a minority case instance (in this case a stroke) and finds its nearest neighbour. Then it generates synthetic models by randomly choosing one of the neighbours and forms a line segement in the feature space. In this case of this project, it resulted in the least accuracy and lowest confusion matrix values (shown below). "Over-sampling does not increase information; however by replication it raises the weight of the minority samples"  (https://statistics.berkeley.edu/sites/default/files/tech-reports/666.pdf). It is important in health datasets that we don't over predict strokes but under prediction would possibly be a bigger problem - where an at risk patient goes undetected. Hence over-sampling is an acceptable technique on these types of datasets (imbalanced). 
-On the training data:                                   On the test data
+On the training data:                                      On the test data
          	Predicted 0 	Predicted 1                      	         Predicted 0 	Predicted 1  
-Actual 0	  3385           0                              Actual 0	   848          	2  
-Actual 0	     0          3391                            Actual 1     27	         817  
+Actual 0	  3385           0                                 Actual 0	   848          	2  
+Actual 0	     0          3391                               Actual 1     27	         817  
+  
+Accuracy 98.2     
 
-Accuracy 98.2   
-
-Classification Report  
+Classification Report   
               precision    recall  f1-score   support 
 
            0       0.97      1.00      0.98       850  
