@@ -143,21 +143,45 @@ Another useful metric is recall, which is used to measure how well the fraction 
 The F1-score is a measure of model performance that combines precision and recall into a single number. This metric represents the harmonic mean between recall and precision values as equation  
 𝐹1𝑠𝑐𝑜𝑟𝑒= 2/ 1 𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛+ 1 𝑅𝑒𝑐𝑎𝑙𝑙 =2∗𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛∗𝑟𝑒𝑐𝑎𝑙𝑙 𝑃𝑟𝑒𝑐𝑜𝑠𝑖𝑜𝑛+𝑅𝑒𝑐𝑎𝑙𝑙
 
-For some extra work we decided to apply a logistical regresssion model to the data which only resulted in 50% accuracy.  
+**For some extra work** we decided to apply a logistical regresssion model to the data which only resulted in 50% accuracy.  
 
-We also applied a decision tree model to the data and received an accuracy of 0.9775678866587958  The F1 score shows the model is 98% accurately predicting when a patient will have a stroke. It is very accurate for stroke prediction but not as accurate as other models for non-stroke prediction. 
+We also applied a decision tree model to the data and received an accuracy of 0.9752066115702479  The F1 score shows the model is 98% accurately predicting when a patient will have a stroke. It is very accurate for stroke prediction but not as accurate as other models for non-stroke prediction. 
 
 Classification Report
               precision    recall  f1-score   support
 
-           0       0.96      1.00      0.98       810
-           1       1.00      0.96      0.98       884
+           0       0.95      1.00      0.97       815
+           1       1.00      0.95      0.98       879
 
     accuracy                           0.98      1694
    macro avg       0.98      0.98      0.98      1694
 weighted avg       0.98      0.98      0.98      1694
 
 We also optimised this model using hyper parameters.  
+# Create grid of parameters to search
+params_grid = [{'max_depth': [2, 3, 4], 'min_samples_leaf': [10, 20, 30], 'max_features': [3, 5, 7]}]  
+Get the best combination of parameters
+grid_search_raw.best_params_
+
+0.9752066115702479
+Classification Report
+              precision    recall  f1-score   support
+
+           0       0.95      1.00      0.97       815
+           1       1.00      0.95      0.98       879
+
+    accuracy                           0.98      1694
+   macro avg       0.98      0.98      0.98      1694
+weighted avg       0.98      0.98      0.98      1694
+
+GridSearchCV
+estimator: DecisionTreeClassifier
+
+DecisionTreeClassifier
+{'max_depth': 2, 'max_features': 5, 'min_samples_leaf': 20} were identified as the best parameters for the dataset
+Cross-validation with three folds to get average F1 score  
+Scores: [0.76106195 0.63362832 0.58510638]   
+Mean of scores: 0.6599322161551497    
 
 ![tree_model](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/3b8fd9ca-990d-4a1a-b4dd-7531bbccf368)  
 
