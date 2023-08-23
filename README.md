@@ -69,11 +69,64 @@ A random forest model was chosen for this project as it fits the dataset - our d
 After much researching it was found that the random forest algorithm is idea for dealing with data imbalance. It is a strong modelling technique and is much sturdier than a single decision tree. The aggregation of several trees limits the possibility of data overfitting and miscalculations due to bias.  Random forest has also historically been a model of choice for healthcare datasets.
 
 Our first algorithm attempt was to use SMOTE (Synthetic Minority Oversampling Technique) with the random forest which resulted in a reasonable accuracy but wasn't predicting the data as efficiently as we would like. SMOTE is an oversampling technique that uses a minority class to generate synthetic samples. It typically overcomes overfitting problems raised by random oversampling. It randomly selects a minority case instance (in this case a stroke) and finds its nearest neighbour. Then it generates synthetic models by randomly choosing one of the neighbours and forms a line segement in the feature space. In this case of this project, it resulted in the least accuracy and lowest confusion matrix values (shown below). "Over-sampling does not increase information; however by replication it raises the weight of the minority samples"  (https://statistics.berkeley.edu/sites/default/files/tech-reports/666.pdf). It is important in health datasets that we don't over predict strokes but under prediction would possibly be a bigger problem - where an at risk patient goes undetected. Hence over-sampling is an acceptable technique on these types of datasets (imbalanced). 
+On the training data:                                   On the test data
+         	Predicted 0 	Predicted 1                      	         Predicted 0 	Predicted 1  
+Actual 0	  3385           0                              Actual 0	   848          	2  
+Actual 0	     0          3391                            Actual 1     27	         817  
+
+Accuracy 98.2   
+
+Classification Report  
+              precision    recall  f1-score   support 
+
+           0       0.97      1.00      0.98       850  
+           1       1.00      0.97      0.98       844  
+
+    accuracy                           0.98      1694  
+   macro avg       0.98      0.98      0.98      1694  
+weighted avg       0.98      0.98      0.98      1694  
+
 
 Our second attempt included binning the BMI feature of the dataset and using oversampler and the random forest algorithm which produced better results than the first model.  Binning algorithms can pre-process the data and speed up the subsequent tree construction in a random forest. It is a pre-processsing method to group numerical values and is a technique that may address prevalent data issues such as the handling of missing values, presence of outliers and statistical noise as well as data scaling. 
 Results from this second model were reasonable however upon further research, perhaps binning is unnecessary since when building a decision tree, the algorithm in a way, does the binning for you, based on the best split. so we decided to base the next model optimising attempt on just the random oversampler and random forest classifier. 
 
+On the training data:                                   On the test data  
+         	Predicted 0 	Predicted 1                      	         Predicted 0 	Predicted 1   
+Actual 0	  3385           0                              Actual 0	   844          	6    
+Actual 0	     0          3391                            Actual 1     0	         844    
+
+Accuracy 99.6    
+
+Classification Report  
+              precision    recall  f1-score   support  
+
+           0       1.00      0.99      1.00       850  
+           1       0.99      1.00      1.00       844  
+
+    accuracy                           1.00      1694  
+   macro avg       1.00      1.00      1.00      1694  
+weighted avg       1.00      1.00      1.00      1694  
+
+
 Our third attempt was the oversampler and random forest model alone which became our model of choice and the final model for the final visualisation of this project - the data was imputed through pickle and visualised in flask, html and css.
+
+On the training data:                                   On the test data  
+         	Predicted 0 	Predicted 1                      	         Predicted 0 	Predicted 1   
+Actual 0	  3385           0                              Actual 0	   843          	7    
+Actual 0	     0          3391                            Actual 1     0	         844    
+
+Accuracy 99.6  
+
+Classification Report  
+              precision    recall  f1-score   support  
+
+           0       1.00      0.99      1.00       850  
+           1       0.99      1.00      1.00       844  
+
+    accuracy                           1.00      1694  
+   macro avg       1.00      1.00      1.00      1694  
+weighted avg       1.00      1.00      1.00      1694  
+
 
 All of the model's performance on the imbalanced dataset, we used common metrics like the confusion matrix, precision, recall, f1-score and PRC (precision-recall Curve).
 
