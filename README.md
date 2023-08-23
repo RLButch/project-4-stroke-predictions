@@ -66,11 +66,11 @@ Outliers were removed from the dataset, BMI and avg glucose level fields contain
 A correlation matrix was performed on the dataset between the numerical features in the data. As shown in the matrix, most of the features are not highly correlated with any other features. BMI has a weakly positive correlation with stroke which is the most obvious correlation within the matrix.  
 
 A random forest model was chosen for this project as it fits the dataset - our dataset is slightly imbalanced, not unexpectedly but the lack of of stroke within the dataset is far lesser than the incidence of stroke which creates the imbalance in the dataset.  (it would be expected in this type of dataset that the non-stroke incidence would outweigh the stroke incidence, like in a finance dataset where standard transactions would outweigh the number of fraudulent transactions). 
-After much researching it was found that the random forest algorithm is idea for dealing with data imbalance. It is a strong modelling technique and is much sturdier than a single decision tree. The aggregation of several trees limits the possibility of data overfitting and miscalculations due to bias.  Random forest has also historically been a model of choice for healthcare datasets.
+After much researching it was found that the random forest algorithm is idea for dealing with data imbalance. It is a strong modelling technique and is much sturdier than a single decision tree. The aggregation of several trees limits the possibility of data overfitting and miscalculations due to bias.  Random forest has also historically been a model of choice for healthcare datasets. In Random Forest, feature importance comes for free when training a model, so it is a great way to verify initial hypotheses and identify ‘what’ the model is learning.
 
 Our first algorithm attempt was to use SMOTE (Synthetic Minority Oversampling Technique) with the random forest which resulted in a reasonable accuracy but wasn't predicting the data as efficiently as we would like. SMOTE is an oversampling technique that uses a minority class to generate synthetic samples. It typically overcomes overfitting problems raised by random oversampling. It randomly selects a minority case instance (in this case a stroke) and finds its nearest neighbour. Then it generates synthetic models by randomly choosing one of the neighbours and forms a line segement in the feature space. In this case of this project, it resulted in the least accuracy and lowest confusion matrix values (shown below). "Over-sampling does not increase information; however by replication it raises the weight of the minority samples"  (https://statistics.berkeley.edu/sites/default/files/tech-reports/666.pdf). It is important in health datasets that we don't over predict strokes but under prediction would possibly be a bigger problem - where an at risk patient goes undetected. Hence over-sampling is an acceptable technique on these types of datasets (imbalanced). 
 
-On the training data:                                        On the test data
+On the training data:  (a subset to train a model)              On the test data (a subset to test the trained data)  
          	Predicted 0 Predicted 1                      	              Predicted 0 	Predicted 1  
 Actual 0	   3385            0                                 Actual 0 	   848          	2  
 Actual 0	      0           3391                               Actual 1      27	         817  
@@ -86,6 +86,8 @@ Classification Report
     accuracy                           0.98      1694  
    macro avg       0.98      0.98      0.98      1694  
 weighted avg       0.98      0.98      0.98      1694  
+
+Evaluation: In this optimization attempt, we utilized SMOTE to oversample the data, resulting in an overall accuracy score of approximately 98% when predicting class 0 (no stroke) and class 1 (stroke. For our next attempt, we will explore the binning method to see if this can help simplify the data and reduce noise. The objective is to optimize the model's overall performance, as well as enhance the sensitivity and specificity scores. The test data showed that it was predicting no stroke when actually there were 27 incidents of stroke, indicating this isn't the best model to be using for our final visualisation or the best model overall for predicting the likelihood of stroke. The F1 score is close to 1 which tells us that this model is close to predicting stroke incidence accurately but its not quite there. Precision tells us that out of all the patients the model predicted no stroke - only 97% didn't have a stroke however for the incidence of stroke it was 100%. this model is predicting  stroke incidence better than it is predicting no strokes.
 
 
 Our second attempt included binning the BMI feature of the dataset and using oversampler and the random forest algorithm which produced better results than the first model.  Binning algorithms can pre-process the data and speed up the subsequent tree construction in a random forest. It is a pre-processsing method to group numerical values and is a technique that may address prevalent data issues such as the handling of missing values, presence of outliers and statistical noise as well as data scaling. 
@@ -108,6 +110,8 @@ Classification Report
    macro avg       1.00      1.00      1.00      1694  
 weighted avg       1.00      1.00      1.00      1694  
 
+Evaluation: In this optimization attempt, we divided the bmi column into four categories(or bins) and applied the RandomOverSampler technique to oversample the data and utilized it for training our model. As a result, we obtained an accuracy score of approximately 99.6% for predicting both class 0 and 1. When we compared this outcome with our initial model that didn't involve binning the bmi, we observed that the overall performance increased slightly by 1.5%, while sensitivity and specificity scores were enhanced. This suggests that binning the bmi column has an affect on the overall performance of the model. The F1 score is equal to 1 which tells us that this model is predicting stroke incidence accurately. Precision tells us that out of all the patients the model predicted no stroke - the model is gettin it 100% correct and for stroke prediction the incidence  it was 97%. this model is predicting non stroke incidence better than it is predicting strokes. On the test data it was accurately predicting no strokes when there weren't any and predicting 6 strokes when there were no actual strokes.
+
 
 Our third attempt was the oversampler and random forest model alone which became our model of choice and the final model for the final visualisation of this project - the data was imputed through pickle and visualised in flask, html and css.
 
@@ -128,6 +132,9 @@ Classification Report
    macro avg       1.00      1.00      1.00      1694  
 weighted avg       1.00      1.00      1.00      1694  
 
+Evaluation: We have accomplished an high overall accuracy rate of approximately 99.6% when predicting both class 0 and 1 using this model. The F1 score is equal to 1 which tells us that this model is predicting stroke incidence accurately. Precision tells us that out of all the patients the model predicted no stroke - the model is getting it 100% correct and for stroke prediction the incidence  it was 99%. this model is predicting non stroke incidence slightly better than it is predicting strokes. On the test data it was accurately predicting no strokes when there weren't any and predicting 7 strokes when there were no actual strokes. However it is accurately predicting strokes when there are strokes. There were no strokes that were not predicted in this dataset. Due to the slightly higher accuracy from the classification report - this model was chosen to be uploaded in pickle and visualised through a flask app.
+
+*Note: After comparing the overall accuracy score, false positive rate and false negative rate, we've decided this is the best model(our final model!).
 
 All of the model's performance on the imbalanced dataset, we used common metrics like the confusion matrix, precision, recall, f1-score and PRC (precision-recall Curve).
 
