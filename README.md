@@ -143,7 +143,23 @@ Another useful metric is recall, which is used to measure how well the fraction 
 The F1-score is a measure of model performance that combines precision and recall into a single number. This metric represents the harmonic mean between recall and precision values as equation  
 𝐹1𝑠𝑐𝑜𝑟𝑒= 2/ 1 𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛+ 1 𝑅𝑒𝑐𝑎𝑙𝑙 =2∗𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛∗𝑟𝑒𝑐𝑎𝑙𝑙 𝑃𝑟𝑒𝑐𝑜𝑠𝑖𝑜𝑛+𝑅𝑒𝑐𝑎𝑙𝑙
 
+For some extra work we decided to apply a logistical regresssion model to the data which only resulted in 50% accuracy.  
 
+We also applied a decision tree model to the data and received an accuracy of 0.9775678866587958  The F1 score shows the model is 98% accurately predicting when a patient will have a stroke. It is very accurate for stroke prediction but not as accurate as other models for non-stroke prediction. 
+
+Classification Report
+              precision    recall  f1-score   support
+
+           0       0.96      1.00      0.98       810
+           1       1.00      0.96      0.98       884
+
+    accuracy                           0.98      1694
+   macro avg       0.98      0.98      0.98      1694
+weighted avg       0.98      0.98      0.98      1694
+
+We also optimised this model using hyper parameters.  
+
+![tree_model](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/3b8fd9ca-990d-4a1a-b4dd-7531bbccf368)  
 
 
 
