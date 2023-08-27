@@ -40,12 +40,27 @@ Create interactive web app using pickle, html and css
 ![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/2db5ce0a-f698-4507-8c17-350d492f08cc)
  
 **EDA** 
-The kaggle dataset was cleaned 
+Dataset from kaggle was uploaded, cleaned and organised in order to get it ready for machine learning and storage in pickle before finally uploading into flask for visualisation of our project.  
+Firstly we uploaded the csv file into python using pandas, visualised the data into a dataframe and then explored some key features of the dataset, we looked at the number of stroke incidence vs no stroke.  
+We explored the dataset learn what values are numerical and non numerical, what columns exist in the data, what columns might be missing data - we can see the bmi column is missing some values (approx. 201).  
+We performed some basic summary statistics on the dataset to get an idea of the values and characteristics.  
+We investigated columns (or rather 'features' such as bmi, age, gender etc) that didn't have values (nan). we found 201 data entries missing for the BMI column. 
+We removed any duplicates and the 'id' column, as this column doesn't add any value to the further investigation of the dataset. 
+We performed a correlation matrix between the numerical features in the data. (results explained further on).  
+Outliers were removed from the dataset. (explaination further on).  we examined the shape of the data before and after removing the outliers:
+Shape of data before removing outliers : (5110, 11)  
+Shape of data after remove : (4401, 11)   
+We then grouped BMI by age group and then in order to retain data records the bmi column with NAN values was replaced with the average for that age group.  
+We visualised the distribution of the data: checking the numerical (columns in the dataset that value numbers rather than letters) key features of the dataset, interesting to see that bmi is almost normally distributed  
+![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/5869141b-c2ed-4459-8e7e-294eb8349fd8)   
+We then checked the gender distribution, since the 'other' gender only had one entry, it was decided to remove this and the removal would not adversly affect the data or subsequent machine learning models.  
+We then decided to investigate the non-numerical dataset features, looking at the gender distribution, job types held (work counts), distribution of smokers vs non smokers etc and the residence types. This was to get a good understanding of what the data looks like and some key non-numerical features held within the dataset.`
+![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/492714a9-8436-4955-8da6-5bcdab732d72)  
 
+We then investigated a breakdown of the dataset non-numerical features by stroke incidence. its interesting to see that smoking didn't seem to have a large impact on the incidence of stroke where people who have never smoked had a slightly higher incidence of stroke than those that smoked. Hypertension didn't seem to have a great incidence neither did heart disease. Whether people lived rurally or in urban areas didn't seem to impact stroke incidence either. It seems there is a slightly higher incidence of stroke in women over men. it appears marriage leads to higher stroke incidence, which is in contrast to a high number of successful research into the benefits of marriage which includes improved health outcomes. This dataset seems to buck the trend.   
+![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/d3bfd06c-764e-4564-a2e1-33e85c6ee672)   
 
-
-
-Data preprocessing methods included:  
+**Data preprocessing** methods included:  
 We applied oversampling methods to handle imbalanced data 
 We encoded data to categorical variables (get dummies) 
 We used feature scaling to transform numerical features into a consistent range (splitting into x and y, standardscaler) 
