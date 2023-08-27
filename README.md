@@ -16,7 +16,8 @@ Kaggle, One on one tutorials, Wednesday Tutorials, Class activities, class instr
 
 The dataset used for stroke incidence was obtained from Kaggle and was drawn from a compliation of patients medical records. It encompasses wide ranging information including patient medical histories, demographics, lifestyle factors and the presence or absence of a stroke for each patient.
 
-Here is a snippet of the dataset:    
+Here is a snapshot of what the dataset looks like:    
+![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/8edb0f0f-a3a8-4269-8825-ce6882a4e195)
 
 
 **Resources:**     
