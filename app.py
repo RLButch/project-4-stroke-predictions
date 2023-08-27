@@ -167,10 +167,6 @@ def fancy_deconstruct(user_input):
               r_rural, r_urban, s_unknown, s_former, s_never, s_yes]
     return decoded_input
 
-# third page of visualisations
-@app.route("/")
-def index():
-    return render_template('graphs.html')
 
 if __name__=='__main__': 
 	app.run()
