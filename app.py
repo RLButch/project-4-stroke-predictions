@@ -113,12 +113,12 @@ def stroke_pred(g,a,hyt,ht,m,w,r,gl,b,s):
     print(result)
     #output
     if result == 1:
-        return Markup("Warning! Patient exhibits risk symptoms for a stroke. <br> Please advise patient of recommendations for managing lifestyle factors and preventative measures to reduce the risk of stroke.")
+        return Markup("Warning! Patient exhibits risk symptoms for a stroke. <br> Please advise patient of recommendations for managing lifestyle factors and preventative measures to reduce the risk of stroke. This advice is general in nature, please seek professional medical advice.")
     elif result == 0:
-        return  Markup("No risk of stroke detected <br> Please continue monitoring patient's health and well-being. Please offer patient recommendations to keep maintaining their health.")
+        return  Markup("No risk of stroke detected <br> Please continue monitoring patient's health and well-being. Please offer patient recommendations to keep maintaining their health. This advice is general in nature, please seek professional medical advice")
     else:
         return "A problem has occured in processing your data. Try again."
-# Decontruct and encode inputs, transform 10 columns to 20
+    # Decontruct and encode inputs, transform 10 columns to 20
 # eg. female = 0, male = 1...
 def fancy_deconstruct(user_input): 
     g,a,hyt,ht,m,w,r,gl,b,s=user_input
