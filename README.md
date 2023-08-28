@@ -86,27 +86,14 @@ After much researching it was found that the random forest algorithm is idea for
 
 Our first algorithm attempt was to use SMOTE (Synthetic Minority Oversampling Technique) with the random forest which resulted in a reasonable accuracy but wasn't predicting the data as efficiently as we would like. SMOTE is an oversampling technique that uses a minority class to generate synthetic samples. It typically overcomes overfitting problems raised by random oversampling. It randomly selects a minority case instance (in this case a stroke) and finds its nearest neighbour. Then it generates synthetic models by randomly choosing one of the neighbours and forms a line segement in the feature space. In this case of this project, it resulted in the least accuracy and lowest confusion matrix values (shown below). "Over-sampling does not increase information; however by replication it raises the weight of the minority samples"  (https://statistics.berkeley.edu/sites/default/files/tech-reports/666.pdf). It is important in health datasets that we don't over predict strokes but under prediction would possibly be a bigger problem - where an at risk patient goes undetected. SMOTE is not a perfect substitute for real data because.....
 
-On the training data:  (a subset to train a model)              On the test data (a subset to test the trained data)  
    Model 1: SMOTE					
 					
-		TRAINING		TESTING	
-		Predicted 0	Predicted 1	Predicted 0	Predicted 1
-	Actual 0	 3,385 	 -   	 848 	 2 
-	Actual 1	 -   	 3,391 	 27 	 817 
-					
-	Accuracy	98.2%			
+				
 ![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/1a1cf100-7339-4fda-b08b-c53530104094)
 
 
-Classification Report   
-              precision    recall  f1-score   support 
+![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/0c357154-87ae-4878-9743-3d9d0c4fe215)
 
-           0       0.97      1.00      0.98       850  
-           1       1.00      0.97      0.98       844  
-
-    accuracy                           0.98      1694  
-   macro avg       0.98      0.98      0.98      1694  
-weighted avg       0.98      0.98      0.98      1694  
 
 Evaluation: In this optimization attempt, we utilized SMOTE to oversample the data, resulting in an overall accuracy score of approximately 98% when predicting class 0 (no stroke) and class 1 (stroke. For our next attempt, we will explore the binning method to see if this can help simplify the data and reduce noise. The objective is to optimize the model's overall performance, as well as enhance the sensitivity and specificity scores. The test data showed that it was predicting no stroke when actually there were 27 incidents of stroke, indicating this isn't the best model to be using for our final visualisation or the best model overall for predicting the likelihood of stroke. The F1 score is close to 1 which tells us that this model is making the correct predictions most of the time but its not quite there. Precision tells us that out of all the patients the model predicted no stroke - only 97% didn't have a stroke however for the incidence of stroke it was 100%. this model is predicting  stroke incidence better than it is predicting no strokes. 100% of the people that had a stroke it predicted it correctly but only predicted 97% of the people who didn't have a stroke.
 
