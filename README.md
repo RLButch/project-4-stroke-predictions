@@ -39,7 +39,7 @@ Create Flask App, import data in via pickle and connect routes to model
 Create interactive web app using pickle, html and css   
 ![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/2db5ce0a-f698-4507-8c17-350d492f08cc)
  
-**EDA** 
+**EDA**   
 Dataset from kaggle was uploaded, cleaned and organised in order to get it ready for machine learning and storage in pickle before finally uploading into flask for visualisation of our project.  
 Firstly we uploaded the csv file into python using pandas, visualised the data into a dataframe and then explored some key features of the dataset, we looked at the number of stroke incidence vs no stroke.  
 We explored the dataset learn what values are numerical and non numerical, what columns exist in the data, what columns might be missing data - we can see the bmi column is missing some values (approx. 201).  
