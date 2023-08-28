@@ -146,8 +146,6 @@ weighted avg       0.98      0.98      0.98      1694
 We also optimised this model using hyper parameters.  
 
 params_grid = [{'max_depth': [2, 3, 4], 'min_samples_leaf': [10, 20, 30], 'max_features': [3, 5, 7]}]  
-Get the best combination of parameters
-grid_search_raw.best_params_
 The results presented above reveal that both the training and test sets exhibit approximately equivalent class proportions.
 
 Moving forward, the initial Decision Tree classifier can be trained using the unprocessed (unscaled) training dataset. Before fitting the model, we employed GridSearchCV with a 3-fold cross-validation strategy to identify the optimal combination of hyperparameter values for the classifier. The following three hyperparameters have been selected for grid search:
@@ -168,8 +166,6 @@ Classification Report
    macro avg       0.98      0.98      0.98      1694
 weighted avg       0.98      0.98      0.98      1694
 
-GridSearchCV
-estimator: DecisionTreeClassifier
 
 DecisionTreeClassifier
 Utilizing the trained tree model, we can predict outcomes for the test dataset and assess its efficacy on previously unseen information. Subsequently, we can gauge its effectiveness using a performance measure like the F1 score. Employing a three-fold cross-validation technique, We will appraise the model and obtain three distinct F1 scores as output.
