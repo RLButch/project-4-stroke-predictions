@@ -87,11 +87,16 @@ After much researching it was found that the random forest algorithm is idea for
 Our first algorithm attempt was to use SMOTE (Synthetic Minority Oversampling Technique) with the random forest which resulted in a reasonable accuracy but wasn't predicting the data as efficiently as we would like. SMOTE is an oversampling technique that uses a minority class to generate synthetic samples. It typically overcomes overfitting problems raised by random oversampling. It randomly selects a minority case instance (in this case a stroke) and finds its nearest neighbour. Then it generates synthetic models by randomly choosing one of the neighbours and forms a line segement in the feature space. In this case of this project, it resulted in the least accuracy and lowest confusion matrix values (shown below). "Over-sampling does not increase information; however by replication it raises the weight of the minority samples"  (https://statistics.berkeley.edu/sites/default/files/tech-reports/666.pdf). It is important in health datasets that we don't over predict strokes but under prediction would possibly be a bigger problem - where an at risk patient goes undetected. SMOTE is not a perfect substitute for real data because.....
 
 On the training data:  (a subset to train a model)              On the test data (a subset to test the trained data)  
-         	Predicted 0 Predicted 1                      	              Predicted 0 	Predicted 1  
-Actual 0	   3385            0                                 Actual 0 	   848          	2  
-Actual 0	      0           3391                               Actual 1      27	         817  
+   Model 1: SMOTE					
+					
+		TRAINING		TESTING	
+		Predicted 0	Predicted 1	Predicted 0	Predicted 1
+	Actual 0	 3,385 	 -   	 848 	 2 
+	Actual 1	 -   	 3,391 	 27 	 817 
+					
+	Accuracy	98.2%			
+![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/1a1cf100-7339-4fda-b08b-c53530104094)
 
-Accuracy 98.2      
 
 Classification Report   
               precision    recall  f1-score   support 
