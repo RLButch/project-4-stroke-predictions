@@ -50,7 +50,8 @@ We performed a correlation matrix between the numerical features in the data. (r
 Outliers were removed from the dataset. (explaination further on).  we examined the shape of the data before and after removing the outliers:
 Shape of data before removing outliers : (5110, 11)  
 Shape of data after remove : (4401, 11)   
-We then grouped BMI by age group and then in order to retain data records the bmi column with NAN values was replaced with the average for that age group.  
+We then grouped BMI by age group and then in order to retain data records the bmi column with NAN values was replaced with the average for that age group.  The machine learning algorithm cannot process categorical data values. It can only process numerical values. 
+To fit the data into the prediction model, we need to convert categorical values to numerical ones. Before that, we will evaluate if any transformation on categorical columns is necessary. 
 We visualised the distribution of the data: checking the numerical (columns in the dataset that value numbers rather than letters) key features of the dataset, interesting to see that bmi is almost normally distributed  
 ![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/5869141b-c2ed-4459-8e7e-294eb8349fd8)   
 We then checked the gender distribution, since the 'other' gender only had one entry, it was decided to remove this and the removal would not adversly affect the data or subsequent machine learning models.  
@@ -84,12 +85,10 @@ A correlation matrix was performed on the dataset between the numerical features
 A random forest model was chosen for this project as it fits the dataset - our dataset is slightly imbalanced, not unexpectedly but the lack of of stroke within the dataset is far lesser than the incidence of stroke which creates the imbalance in the dataset.  (it would be expected in this type of dataset that the non-stroke incidence would outweigh the stroke incidence, like in a finance dataset where standard transactions would outweigh the number of fraudulent transactions). 
 After much researching it was found that the random forest algorithm is idea for dealing with data imbalance. It is a strong modelling technique and is much sturdier than a single decision tree. The aggregation of several trees limits the possibility of data overfitting and miscalculations due to bias.  Random forest has also historically been a model of choice for healthcare datasets. In Random Forest, feature importance comes for free when training a model, so it is a great way to verify initial hypotheses and identify ‘what’ the model is learning.
 
-Our first algorithm attempt was to use SMOTE (Synthetic Minority Oversampling Technique) with the random forest which resulted in a reasonable accuracy but wasn't predicting the data as efficiently as we would like. SMOTE is an oversampling technique that uses a minority class to generate synthetic samples. It typically overcomes overfitting problems raised by random oversampling. It randomly selects a minority case instance (in this case a stroke) and finds its nearest neighbour. Then it generates synthetic models by randomly choosing one of the neighbours and forms a line segement in the feature space. In this case of this project, it resulted in the least accuracy and lowest confusion matrix values (shown below). "Over-sampling does not increase information; however by replication it raises the weight of the minority samples"  (https://statistics.berkeley.edu/sites/default/files/tech-reports/666.pdf). It is important in health datasets that we don't over predict strokes but under prediction would possibly be a bigger problem - where an at risk patient goes undetected. SMOTE is not a perfect substitute for real data because.....
+Our first algorithm attempt was to use SMOTE (Synthetic Minority Oversampling Technique) with the random forest which resulted in a reasonable accuracy but wasn't predicting the data as efficiently as we would like. SMOTE is an oversampling technique that uses a minority class to generate synthetic samples. It typically overcomes overfitting problems raised by random oversampling. It randomly selects a minority case instance (in this case a stroke) and finds its nearest neighbour. Then it generates synthetic models by randomly choosing one of the neighbours and forms a line segement in the feature space. In this case of this project, it resulted in the least accuracy and lowest confusion matrix values (shown below). "Over-sampling does not increase information; however by replication it raises the weight of the minority samples"  (https://statistics.berkeley.edu/sites/default/files/tech-reports/666.pdf). It is important in health datasets that we don't over predict strokes but under prediction would possibly be a bigger problem - where an at risk patient goes undetected. SMOTE is not a perfect substitute for real data because it generates synthetic samples based on existing data, which can potentially introduce biases and patterns that might not accurately reflect the true distribution and intricacies of the underlying data. Additionally, SMOTE assumes that all features are equally important and independent, which may not hold true in many real-world scenarios where complex relationships exist among variables. Moreover, the process of oversampling through SMOTE can lead to overfitting, as it magnifies the noise present in the original dataset, potentially causing the model's performance to degrade when exposed to genuinely unseen data. Lastly, SMOTE doesn't consider the contextual nuances and domain-specific intricacies that real data often encapsulate, making it challenging to replicate the full spectrum of scenarios that a model might encounter in practical applications.
+	
+![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/027b2455-8e91-4a24-bf94-16cb8d7271cd)
 
-   Model 1: SMOTE and random forest classifier					
-					
-				
-![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/1a1cf100-7339-4fda-b08b-c53530104094)
 
 
 ![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/0c357154-87ae-4878-9743-3d9d0c4fe215)
@@ -128,7 +127,9 @@ Another useful metric is recall, which is used to measure how well the fraction 
 The F1-score is a measure of model performance that combines precision and recall into a single number. This metric represents the harmonic mean between recall and precision values as equation  
 𝐹1𝑠𝑐𝑜𝑟𝑒= 2/ 1 𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛+ 1 𝑅𝑒𝑐𝑎𝑙𝑙 =2∗𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛∗𝑟𝑒𝑐𝑎𝑙𝑙 𝑃𝑟𝑒𝑐𝑜𝑠𝑖𝑜𝑛+𝑅𝑒𝑐𝑎𝑙𝑙
 
-**For some extra work** we decided to apply a logistical regresssion model to the data which only resulted in 50% accuracy.  
+**For some extra work** we decided to apply a logistical regresssion model to the data which only resulted in 50% accuracy.  In this optimization attempt, the logistical regression method is not very accurate, even after balancing the dataset. however the harmonic mean of precision and recall is also high (close to 1), indicating a good balance between precision and recall.
+
+**Decision Tree**	
 
 We also applied a decision tree model to the data and received an accuracy of 0.9752066115702479  The F1 score shows the model is 98% accurately predicting when a patient will have a stroke. It is very accurate for stroke prediction but not as accurate as other models for non-stroke prediction. 
 
@@ -143,10 +144,18 @@ Classification Report
 weighted avg       0.98      0.98      0.98      1694
 
 We also optimised this model using hyper parameters.  
-# Create grid of parameters to search
+
 params_grid = [{'max_depth': [2, 3, 4], 'min_samples_leaf': [10, 20, 30], 'max_features': [3, 5, 7]}]  
 Get the best combination of parameters
 grid_search_raw.best_params_
+The results presented above reveal that both the training and test sets exhibit approximately equivalent class proportions.
+
+Moving forward, the initial Decision Tree classifier can be trained using the unprocessed (unscaled) training dataset. Before fitting the model, we employed GridSearchCV with a 3-fold cross-validation strategy to identify the optimal combination of hyperparameter values for the classifier. The following three hyperparameters have been selected for grid search:
+
+max_depth: This parameter determines the maximum depth of the tree. A higher value leads to a more intricate tree with increased flexibility, potentially resulting in overfitting.
+min_samples_leaf: Setting this parameter establishes the minimum number of samples required in a leaf node. Opting for a smaller value might create numerous nodes with insufficient samples, contributing to overfitting.
+max_features: This parameter specifies the maximum count of features considered for node splitting. The risk of overfitting increases if too many features are included.
+For each of these hyperparameters, I will explore three different values to comprehensively assess their impact.
 
 0.9752066115702479
 Classification Report
@@ -163,16 +172,36 @@ GridSearchCV
 estimator: DecisionTreeClassifier
 
 DecisionTreeClassifier
+Utilizing the trained tree model, we can predict outcomes for the test dataset and assess its efficacy on previously unseen information. Subsequently, we can gauge its effectiveness using a performance measure like the F1 score. Employing a three-fold cross-validation technique, We will appraise the model and obtain three distinct F1 scores as output.
+We created a grid of paramaters to search, however were unable to optimise the model.
 {'max_depth': 2, 'max_features': 5, 'min_samples_leaf': 20} were identified as the best parameters for the dataset
 Cross-validation with three folds to get average F1 score  
 Scores: [0.76106195 0.63362832 0.58510638]   
 Mean of scores: 0.6599322161551497    
-
+On two of the folds, this model achieved an F1 score over 60%, but only got 58% on the final fold. On average, this model's F1 score is 65%, which can definitely be improved upon.
 ![tree_model](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/3b8fd9ca-990d-4a1a-b4dd-7531bbccf368)  
 
-
-
-
-
+**Pickle, flask and html deployment**		
+Flask is a Python-based micro framework used for developing small-scale websites. We imported the libraries, then using app=Flask(__name__) we create an instance of flask. @app.route(‘/’) is used to tell flask what URL should trigger the function index() and in the function index, we use render_template(‘index.html’) to display the script index.html in the browser.This should run the application and launch a simple server. Open http://127.0.0.1:5000/ to see the html form.
+HTML Form: We first need to collect the data(new attribute values) to predict stroke from various attributes and then use the random forest model we built above to predict the likelihood of stroke. Therefore, in order to collect the data, we create an HTML form which would contain all the different options to select from each feature.
+Predicting strokes: When someone submits the form, the webpage should display the predicted incidence (or not) of stroke. For this, we require the model file (model.pkl) we created.
+Here, after the form is submitted, the form values are stored in the variable to_predict_list in the form of a dictionary. We convert it into a list of the dictionary’s values and pass it as an argument to ValuePredictor() function. In this function, we load the model.pkl file and predict the new values and return the result. 
+This result/prediction (stroke or no stroke) is then passed as an argument to the template engine with the HTML page to be displayed.
+POST Requests:
+The POST method is used to send data to the server to create or update a resource. It's often used when you want to submit forms, send data to the server for processing, or make changes on the server.
+To handle POST requests in Flask, we needed to use the request object to access the data sent by the client. The GET method is used to retrieve data from the server. It's typically used when you want to retrieve information from the server and display it to the user, or when you want to retrieve data without making any changes on the server.
+It uses HTML forms to gather user inputs related to various health parameters, processes the inputs, and then uses a pre-trained machine learning model to predict the risk of stroke based on the provided information.
+The Flask app contains two routes:
+The main route ("/") renders an HTML template called "index.html" on the homepage.
+The "/output" route handles both POST and GET requests. It processes the user's inputs and attempts to make a prediction regarding the risk of stroke. The outcome of this prediction is then displayed on a result page template called "index 2.html".
+The code uses the following key steps:
+User inputs related to gender, age, health conditions, lifestyle factors, etc., are obtained from the submitted form. (data must be entered in each field)
+These inputs are then processed and transformed to match the format expected by a pre-trained machine learning model for stroke prediction uploaded via pickle.
+The machine learning model is loaded using the pickle library, and the processed inputs are used to make a prediction.
+Depending on the prediction result, appropriate messages are generated and displayed to the user, indicating the risk of stroke.
+In case of invalid inputs or errors in processing, relevant messages are displayed to the user.
+It's important to note that certain functions such as stroke_pred and fancy_deconstruct are used to handle specific data transformation and prediction processes. The app uses render_template to dynamically display HTML pages and request.form to access form data submitted by users.
+Finally, the app is run using app.run() only when the script is executed directly (not when it's imported as a module).
+Keep in mind that this app.py relies on HTML templates ("index.html" and "index 2.html") to provide a user interface. The HTML templates contain the form fields and result display areas.
 
 
