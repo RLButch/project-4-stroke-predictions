@@ -100,45 +100,25 @@ Evaluation: In this optimization attempt, we utilized SMOTE to oversample the da
 
 Our second attempt included binning the BMI feature of the dataset and using oversampler and the random forest algorithm which produced better results than the first model.  Binning algorithms can pre-process the data and speed up the subsequent tree construction in a random forest. It is a pre-processsing method to group numerical values and is a technique that may address prevalent data issues such as the handling of missing values, presence of outliers and statistical noise as well as data scaling. 
 Results from this second model were reasonable however upon further research, perhaps binning is unnecessary since when building a decision tree, the algorithm in a way, does the binning for you, based on the best split. so we decided to base the next model optimising attempt on just the random oversampler and random forest classifier. 
+Model 2: binning and random forest classifier	
+		
+![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/26613061-ae6a-43fa-932e-8185fd50699e)
 
-On the training data:                                   On the test data  
-         	Predicted 0 	Predicted 1                      	         Predicted 0 	Predicted 1   
-Actual 0	  3385           0                              Actual 0	   844          	6    
-Actual 0	     0          3391                            Actual 1     0	         844    
+![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/d2d1105a-3da9-45a7-8844-d9fd3956bffa)
 
-Accuracy 99.6    
-
-Classification Report  
-              precision    recall  f1-score   support  
-
-           0       1.00      0.99      1.00       850  
-           1       0.99      1.00      1.00       844  
-
-    accuracy                           1.00      1694  
-   macro avg       1.00      1.00      1.00      1694  
-weighted avg       1.00      1.00      1.00      1694  
 
 Evaluation: In this optimization attempt, we divided the bmi column into four categories(or bins) and applied the RandomOverSampler technique to oversample the data and utilized it for training our model. As a result, we obtained an accuracy score of approximately 99.6% for predicting both class 0 and 1. When we compared this outcome with our initial model that didn't involve binning the bmi, we observed that the overall performance increased slightly by 1.5%, while sensitivity and specificity scores were enhanced. This suggests that binning the bmi column has an affect on the overall performance of the model. The F1 score is equal to 1 which tells us that this model is predicting stroke incidence accurately. Precision tells us that out of all the patients the model predicted no stroke - the model is gettin it 100% correct and for stroke prediction the incidence  it was 97%. this model is predicting non stroke incidence better than it is predicting strokes. On the test data it was accurately predicting no strokes when there weren't any and predicting 6 strokes when there were no actual strokes.
 
 
 Our third attempt was the oversampler and random forest model alone which became our model of choice and the final model for the final visualisation of this project - the data was imputed through pickle and visualised in flask, html and css.
 
-On the training data:                                   On the test data  
-         	Predicted 0 	Predicted 1                      	         Predicted 0 	Predicted 1   
-Actual 0	  3385           0                              Actual 0	   843          	7    
-Actual 0	     0          3391                            Actual 1     0	         844    
+Model 3: Random Forest classifier					
+					
+		
+![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/fef4a295-260f-413c-8573-18e7e5643501)
 
-Accuracy 99.6  
-
-Classification Report  
-              precision    recall  f1-score   support  
-
-           0       1.00      0.99      1.00       850  
-           1       0.99      1.00      1.00       844  
-
-    accuracy                           1.00      1694  
-   macro avg       1.00      1.00      1.00      1694  
-weighted avg       1.00      1.00      1.00      1694  
+	
+![image](https://github.com/RLButch/project-4-stroke-predictions/assets/122842203/04128e1c-bde1-439a-aadf-adad377ba69e)
 
 Evaluation: We have accomplished an high overall accuracy rate of approximately 99.6% when predicting both class 0 and 1 using this model. The F1 score is equal to 1 which tells us that this model is predicting stroke incidence accurately. Precision tells us that out of all the patients the model predicted no stroke - the model is getting it 100% correct and for stroke prediction the incidence  it was 99%. this model is predicting non stroke incidence slightly better than it is predicting strokes. On the test data it was accurately predicting no strokes when there weren't any and predicting 7 strokes when there were no actual strokes. However it is accurately predicting strokes when there are strokes. There were no strokes that were not predicted in this dataset. Due to the slightly higher accuracy from the classification report - this model was chosen to be uploaded in pickle and visualised through a flask app.
 
